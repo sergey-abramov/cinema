@@ -1,0 +1,14 @@
+insert into film_sessions(film_id, halls_id, start_time, end_time, price)
+values(1, 2, '2023-06-04 08:00:00', '2023-06-04 10:30:00', 250);
+insert into film_sessions(film_id, halls_id, start_time, end_time, price)
+values(3, 1, '2023-06-04 08:00:00', '2023-06-04 10:30:00', 150);
+insert into film_sessions(film_id, halls_id, start_time, end_time, price)
+values(10, 3, '2023-06-04 08:00:00', '2023-06-04 10:30:00', 150);
+insert into film_sessions(film_id, halls_id, start_time, end_time, price)
+values(5, 2, '2023-06-04 12:00:00', '2023-06-04 13:30:00', 250);
+insert into film_sessions(film_id, halls_id, start_time, end_time, price)
+values(7, 1, '2023-06-04 12:00:00', '2023-06-04 13:30:00', 150);
+insert into film_sessions(film_id, halls_id, start_time, end_time, price)
+values(8, 3, '2023-06-04 12:00:00', '2023-06-04 13:30:00', 150);
+insert into film_sessions(film_id, halls_id, start_time, end_time, price)
+values(11, 2, '2023-06-04 22:00:00', '2023-06-04 23:30:00', 250);

@@ -1,0 +1,11 @@
+insert into files(name, path) values('Garry Potter 1', 'files/300x450.webp');
+insert into files(name, path) values('Garry Potter 2', 'files/300x450 (1).webp');
+insert into files(name, path) values('Garry Potter 3', 'files/gp3.webp');
+insert into files(name, path) values('Garry Potter 4', 'files/gp4.webp');
+insert into files(name, path) values('Garry Potter 5', 'files/gp5.webp');
+insert into files(name, path) values('Garry Potter 6', 'files/gp6.webp');
+insert into files(name, path) values('Garry Potter 7.1', 'files/gp7_1.webp');
+insert into files(name, path) values('Garry Potter 7.2', 'files/gp7_2.webp');
+insert into files(name, path) values('Terminator', 'files/terminator.webp');
+insert into files(name, path) values('Terminator2', 'files/terminator2.webp');
+insert into files(name, path) values('Terminator3', 'files/terminator3.webp');
