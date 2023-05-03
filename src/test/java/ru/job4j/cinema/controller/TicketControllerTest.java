@@ -76,7 +76,7 @@ class TicketControllerTest {
         var view = controller.saveTicket(ticket, model);
         var actualMessage = model.getAttribute("message");
 
-        assertThat(view).isEqualTo("errors/404");
+        assertThat(view).isEqualTo("tickets/buy");
         assertThat(actualMessage).isEqualTo(message);
     }
 

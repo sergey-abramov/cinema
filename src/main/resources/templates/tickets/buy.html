@@ -34,57 +34,70 @@
         </div>
     </nav>
     <div class="container">
-        <form class="mt-3" th:action="@{/tickets/buy}" method="post" th:object="${ticket}" enctype="multipart/form-data">
-            <input type="hidden" name="sessionId" th:value="${filmSession.id}">
-            <input type="hidden" name="userId" th:value="${user.id}">
-            <div class="row mb-3">
-                <div class="col-9">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Фильм</th>
-                            <th scope="col">Зал</th>
-                            <th scope="col">Начало</th>
-                            <th scope="col">Конец</th>
-                            <th scope="col">Цена</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td th:text="${filmSession.filmName}"></td>
-                            <td th:text="${filmSession.hallsName}"></td>
-                            <td th:text="${#temporals.format(filmSession.start, 'dd-MM-yyyy HH:mm')}"></td>
-                            <td th:text="${#temporals.format(filmSession.end, 'dd-MM-yyyy HH:mm')}"></td>
-                            <td th:text="${filmSession.price}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="mb-3">
-                    <label for="rowNumber"><b>Ряд</b></label>
-                    <select class="form-control" id="rowNumber" name="rowNumber">
-                        <option th:each="rowNumber : ${rowCounts}" th:value="${rowNumber}" th:text="${rowNumber}"></option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="placeNumber"><b>Место</b></label>
-                    <select class="form-control" id="placeNumber" name="placeNumber">
-                        <option th:each="placeNumber : ${placeCounts}" th:value="${placeNumber}" th:text="${placeNumber}"></option>
-                    </select>
-                </div>
-            </div>
+        <tr th:if="${message}">
+            <p class="text-danger" th:text="${message}"></p>
             <div class="mb-3 row">
                 <div class="col-6"></div>
                 <div class="col-6">
                     <div class="row">
-                        <div class="col-4"><a class="btn btn-light w-100" th:href="@{/filmSessions}">Отмена</a></div>
-                        <div class="col-4"><button class="btn btn-success w-100" type="submit">Купить</button></div>
+                        <div class="col-4"><a class="btn btn-danger w-100" th:href="@{/filmSessions}">Хорошо</a></div>
                     </div>
                 </div>
             </div>
-        </form>
+        </tr>
+        <tr th:if="${filmSession}">
+            <form class="mt-3" th:action="@{/tickets/buy}" method="post" th:object="${ticket}" enctype="multipart/form-data">
+                <input type="hidden" name="sessionId" th:value="${filmSession.id}">
+                <input type="hidden" name="userId" th:value="${user.id}">
+                <div class="row mb-3">
+                    <div class="col-9">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Фильм</th>
+                                <th scope="col">Зал</th>
+                                <th scope="col">Начало</th>
+                                <th scope="col">Конец</th>
+                                <th scope="col">Цена</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${filmSession.filmName}"></td>
+                                <td th:text="${filmSession.hallsName}"></td>
+                                <td th:text="${#temporals.format(filmSession.start, 'dd-MM-yyyy HH:mm')}"></td>
+                                <td th:text="${#temporals.format(filmSession.end, 'dd-MM-yyyy HH:mm')}"></td>
+                                <td th:text="${filmSession.price}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="mb-3">
+                        <label for="rowNumber"><b>Ряд</b></label>
+                        <select class="form-control" id="rowNumber" name="rowNumber">
+                            <option th:each="rowNumber : ${rowCounts}" th:value="${rowNumber}" th:text="${rowNumber}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="placeNumber"><b>Место</b></label>
+                        <select class="form-control" id="placeNumber" name="placeNumber">
+                            <option th:each="placeNumber : ${placeCounts}" th:value="${placeNumber}" th:text="${placeNumber}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-6"></div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4"><a class="btn btn-light w-100" th:href="@{/filmSessions}">Отмена</a></div>
+                            <div class="col-4"><button class="btn btn-success w-100" type="submit">Купить</button></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </tr>
     </div>
 </div>
 </body>

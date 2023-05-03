@@ -55,7 +55,7 @@ public class TicketController {
                         "Вероятно оно уже занято. Перейдите на страницу бронирования билетов
                         и попробуйте снова.
                         """);
-                return "errors/404";
+                return "tickets/buy";
             }
             model.addAttribute("row", optionalTicket.get().getRowNumber());
             model.addAttribute("place", optionalTicket.get().getPlaceNumber());
