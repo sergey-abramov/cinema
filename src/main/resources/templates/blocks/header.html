@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Header Bootstrap v5.0</title>
+    <meta charset="utf-8">
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/static/css/header.css" rel="stylesheet">
+</head>
+<div th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">Job4jCinema</a>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
+                    <li><a href="/films" class="nav-link px-2 text-white">Фильмы</a></li>
+                    <li><a href="/filmSessions" class="nav-link px-2 text-white">Сеансы</a></li>
+                    <li><a href="/faq" class="nav-link px-2 text-white">FAQs</a></li>
+                </ul>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                </form>
+
+                <div class="text-end" th:if="${user.fullName == 'Гость'}">
+                    <a class="btn btn-outline-light me-2" href="#" th:href="@{/users/register}">Регистрация</a>
+                    <a class="btn btn-warning" th:href="@{/users/login}">Войти</a>
+                </div>
+                <div class="text-end" th:if="${user.fullName != 'Гость'}">
+                    <a class="btn btn-outline-light me-2" href="#" th:text="${user.fullName}"></a>
+                    <a class="btn btn-warning" th:href="@{/users/logout}">Выйти</a>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+</html>
