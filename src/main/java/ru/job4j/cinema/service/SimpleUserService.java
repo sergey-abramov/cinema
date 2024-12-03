@@ -2,6 +2,7 @@ package ru.job4j.cinema.service;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
+import ru.job4j.cinema.aspect.MyCustomAspectAnnotation;
 import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.repository.UserRepository;
 
@@ -22,6 +23,7 @@ public class SimpleUserService implements UserService {
         return repository.save(user);
     }
 
+    @MyCustomAspectAnnotation
     @Override
     public Optional<User> findByEmailAndPassword(String email, String password) {
         return repository.findByEmailAndPassword(email, password);

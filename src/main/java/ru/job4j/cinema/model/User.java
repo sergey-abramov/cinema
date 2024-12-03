@@ -1,8 +1,15 @@
 package ru.job4j.cinema.model;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 import java.util.Objects;
 
+@Setter
+@Getter
+@Builder
 public class User {
 
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
@@ -24,38 +31,6 @@ public class User {
     }
 
     public User() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override
