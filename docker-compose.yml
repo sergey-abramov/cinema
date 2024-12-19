@@ -1,0 +1,77 @@
+version: "3.9"
+services:
+  jdk17: &jdk17
+    build: images/build_box/jdk17
+    image: build_box
+    user: ${UID}
+    environment:
+      TZ: "Europe/Moscow"
+
+    #==============================================
+    # Services
+    #==============================================
+
+  postgres_db:
+    container_name: postgres_container
+    image: postgres:12.10-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: cinema
+      POSTGRES_INITDB_ARGS: --encoding=UTF-8 --lc-collate=ru_RU.UTF-8 --lc-ctype=ru_RU.UTF-8
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - cinemadb-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d cinema" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+    networks:
+      - postgres
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:7.2
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "cinema@mail.com"
+      PGADMIN_DEFAULT_PASSWORD: "pgadminpwd4cinema"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+    networks:
+      - postgres
+
+  cinema:
+    ports:
+      - "8080:8080"
+    working_dir: /project/
+    volumes:
+      - ./cinema/:/project/
+    command: mvn spring-boot:run
+
+volumes:
+  cinemadb-data:
+  pgadmin-data:
+
+networks:
+  postgres:
+    driver: bridge
