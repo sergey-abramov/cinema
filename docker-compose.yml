@@ -3,7 +3,6 @@ services:
   jdk17: &jdk17
     build: images/build_box/jdk17
     image: build_box
-    user: ${UID}
     environment:
       TZ: "Europe/Moscow"
 
@@ -61,12 +60,14 @@ services:
       - postgres
 
   cinema:
+    profiles:
+      - environment
+    build: /
     ports:
       - "8080:8080"
     working_dir: /project/
     volumes:
       - ./cinema/:/project/
-    command: mvn spring-boot:run
 
 volumes:
   cinemadb-data:
