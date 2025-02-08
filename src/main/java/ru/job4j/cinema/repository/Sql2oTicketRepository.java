@@ -33,7 +33,7 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("row_number", ticket.getRowNumber())
                     .addParameter("place_number", ticket.getPlaceNumber())
                     .addParameter("user_id", ticket.getUserId());
-            int generatedId = query.executeUpdate().getKey(Integer.class);
+            Long generatedId = query.executeUpdate().getKey(Long.class);
             ticket.setId(generatedId);
             return Optional.of(ticket);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class Sql2oTicketRepository implements TicketRepository {
     }
 
     @Override
-    public Optional<Ticket> findById(int id) {
+    public Optional<Ticket> findById(Long id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery(
                     """
@@ -78,7 +78,7 @@ public class Sql2oTicketRepository implements TicketRepository {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public boolean deleteById(Long id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery(
                             """

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface HallRepository {
 
-    Optional<Hall> findById(int id);
+    Optional<Hall> findById(Long id);
 
     Optional<Hall> findByName(String name);
 }
