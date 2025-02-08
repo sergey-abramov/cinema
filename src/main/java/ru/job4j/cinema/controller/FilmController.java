@@ -20,7 +20,7 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
-    public String getFilm(Model model, @PathVariable int id) {
+    public String getFilm(Model model, @PathVariable Long id) {
         model.addAttribute("film", service.findById(id).get());
         return "films/one";
     }

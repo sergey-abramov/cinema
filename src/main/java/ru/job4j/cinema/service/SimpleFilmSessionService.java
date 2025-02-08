@@ -28,14 +28,14 @@ public class SimpleFilmSessionService implements FilmSessionService {
     }
 
     @Override
-    public Optional<FilmSessionDto> findById(int id) {
+    public Optional<FilmSessionDto> findById(Long id) {
         var optionalFilmSession = repository.findById(id);
         FilmSessionDto filmSessionDto = null;
         if (optionalFilmSession.isPresent()) {
            var filmSession = optionalFilmSession.get();
            filmSessionDto = new FilmSessionDto(filmSession.getId(),
-                   filmRepository.findById(filmSession.getFilmsId()).get().getName(),
-                   filmSession.getFilmsId(),
+                   filmRepository.findById(filmSession.getFilmId()).get().getName(),
+                   filmSession.getFilmId(),
                    hallRepository.findById(filmSession.getHallsId()).get().getName(),
                    filmSession.getStart(),
                    filmSession.getEnd(),
@@ -51,8 +51,8 @@ public class SimpleFilmSessionService implements FilmSessionService {
                 .stream()
                 .map(filmSession -> new FilmSessionDto(
                         filmSession.getId(),
-                        filmRepository.findById(filmSession.getFilmsId()).get().getName(),
-                        filmSession.getFilmsId(),
+                        filmRepository.findById(filmSession.getFilmId()).get().getName(),
+                        filmSession.getFilmId(),
                         hallRepository.findById(filmSession.getHallsId()).get().getName(),
                         filmSession.getStart(),
                         filmSession.getEnd(),

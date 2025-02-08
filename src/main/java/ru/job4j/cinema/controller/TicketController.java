@@ -30,7 +30,7 @@ public class TicketController {
     }
 
     @GetMapping("/buy/{id}")
-    public String buyTickedPlace(Model model, @PathVariable int id) {
+    public String buyTickedPlace(Model model, @PathVariable Long id) {
         Optional<FilmSessionDto> filmSessionDto = filmSessionService.findById(id);
         if (filmSessionDto.isPresent()) {
             var filmSession = filmSessionDto.get();

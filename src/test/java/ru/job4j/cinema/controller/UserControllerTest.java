@@ -38,7 +38,7 @@ class UserControllerTest {
 
     @Test
     void register() {
-        var user = new User(1, "email", "name", "password");
+        var user = new User(1L, "email", "name", "password");
         when(userService.save(user)).thenReturn(Optional.of(user));
 
         var model = new ConcurrentModel();
@@ -49,7 +49,7 @@ class UserControllerTest {
 
     @Test
     void exceptionThenRegister() {
-        var user = new User(1, "email", "name", "password");
+        var user = new User(1L, "email", "name", "password");
         when(userService.save(user)).thenReturn(Optional.empty());
 
         var model = new ConcurrentModel();
@@ -68,7 +68,7 @@ class UserControllerTest {
 
     @Test
     void loginUser() {
-        var user = new User(1, "email", "name", "password");
+        var user = new User(1L, "email", "name", "password");
         when(userService.findByEmailAndPassword(user.getEmail(), user.getPassword()))
                 .thenReturn(Optional.of(user));
         when(httpServletRequest.getSession()).thenReturn(httpSession);

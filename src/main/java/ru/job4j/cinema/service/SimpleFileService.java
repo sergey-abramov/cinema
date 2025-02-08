@@ -3,7 +3,6 @@ package ru.job4j.cinema.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FileDto;
-import ru.job4j.cinema.model.File;
 import ru.job4j.cinema.repository.FileRepository;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class SimpleFileService implements FileService {
     }
 
     @Override
-    public Optional<FileDto> findById(int id) {
+    public Optional<FileDto> findById(Long id) {
         var fileOptional = repository.findById(id);
         if (fileOptional.isEmpty()) {
             return Optional.empty();

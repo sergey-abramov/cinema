@@ -23,7 +23,7 @@ public class SimpleTicketService implements TicketService {
     }
 
     @Override
-    public Optional<Ticket> findById(int id) {
+    public Optional<Ticket> findById(Long id) {
         return repository.findById(id);
     }
 
@@ -33,7 +33,7 @@ public class SimpleTicketService implements TicketService {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public boolean deleteById(Long id) {
         return repository.deleteById(id);
     }
 }

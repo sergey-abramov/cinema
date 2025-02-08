@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface HallService {
 
-    Optional<Hall> findById(int id);
+    Optional<Hall> findById(Long id);
 
     Optional<HallDto> findByName(String name);
 }

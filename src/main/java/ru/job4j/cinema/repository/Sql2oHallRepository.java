@@ -18,7 +18,7 @@ public class Sql2oHallRepository implements HallRepository {
     }
 
     @Override
-    public Optional<Hall> findById(int id) {
+    public Optional<Hall> findById(Long id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM halls WHERE id = :id")
                     .addParameter("id", id);

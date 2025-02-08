@@ -1,10 +1,24 @@
 package ru.job4j.cinema.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.proxy.HibernateProxy;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Map;
 import java.util.Objects;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity(name = "film_sessions")
 public class FilmSession {
 
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
@@ -15,88 +29,37 @@ public class FilmSession {
             "end_time", "end",
             "price", "price");
 
-    private int id;
-    private int filmId;
-    private int hallsId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Long filmId;
+    private Long hallsId;
     private LocalDateTime start;
     private LocalDateTime end;
     private int price;
 
-    public FilmSession() {
-    }
-
-    public FilmSession(int id, int filmId, int hallsId,
-                       LocalDateTime start, LocalDateTime end, int price) {
-        this.id = id;
-        this.filmId = filmId;
-        this.hallsId = hallsId;
-        this.start = start;
-        this.end = end;
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getFilmsId() {
-        return filmId;
-    }
-
-    public void setFilmsId(int filmsId) {
-        this.filmId = filmsId;
-    }
-
-    public int getHallsId() {
-        return hallsId;
-    }
-
-    public void setHallsId(int hallsId) {
-        this.hallsId = hallsId;
-    }
-
-    public LocalDateTime getStart() {
-        return start;
-    }
-
-    public void setStart(LocalDateTime start) {
-        this.start = start;
-    }
-
-    public LocalDateTime getEnd() {
-        return end;
-    }
-
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public final boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null) {
             return false;
         }
-        FilmSession that = (FilmSession) o;
-        return id == that.id;
+        Class<?> oEffectiveClass = object instanceof HibernateProxy proxy
+                ? proxy.getHibernateLazyInitializer().getPersistentClass() : object.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy proxy
+                ? proxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) {
+            return false;
+        }
+        FilmSession that = (FilmSession) object;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public final int hashCode() {
+        return this instanceof HibernateProxy proxy
+                ? proxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }

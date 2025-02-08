@@ -3,7 +3,6 @@ package ru.job4j.cinema.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FilmDto;
-import ru.job4j.cinema.model.Film;
 import ru.job4j.cinema.repository.FilmRepository;
 import ru.job4j.cinema.repository.GenreRepository;
 
@@ -24,7 +23,7 @@ public class SimpleFilmService implements FilmService {
     }
 
     @Override
-    public Optional<FilmDto> findById(int id) {
+    public Optional<FilmDto> findById(Long id) {
         var optionalFilm = repository.findById(id);
         FilmDto filmDto = null;
         if (optionalFilm.isPresent()) {
@@ -47,7 +46,7 @@ public class SimpleFilmService implements FilmService {
                 film.getFileId())).collect(Collectors.toList());
     }
 
-    private String getGenre(int id) {
+    private String getGenre(Long id) {
         return genreRepository.findById(id).get().getName();
     }
 

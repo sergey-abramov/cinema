@@ -27,9 +27,9 @@ class FilmSessionControllerTest {
 
     @Test
     void getAll() {
-        var film1 = new FilmSessionDto(1, "test", 1, "1",
+        var film1 = new FilmSessionDto(1L, "test", 1L, "1",
                 LocalDateTime.now(), LocalDateTime.now().plusHours(2), 100);
-        var film2 = new FilmSessionDto(1, "test", 2, "2",
+        var film2 = new FilmSessionDto(1L, "test", 2L, "2",
                 LocalDateTime.now(), LocalDateTime.now().plusHours(2), 100);
         var expected = List.of(film1, film2);
         when(service.findAll()).thenReturn(expected);

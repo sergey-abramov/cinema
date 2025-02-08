@@ -8,9 +8,9 @@ public interface TicketService {
 
     Optional<Ticket> save(Ticket ticket);
 
-    Optional<Ticket> findById(int id);
+    Optional<Ticket> findById(Long id);
 
     boolean update(Ticket ticket);
 
-    boolean deleteById(int id);
+    boolean deleteById(Long id);
 }
