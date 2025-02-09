@@ -1,4 +1,4 @@
-package ru.job4j.cinema.repository;
+package ru.job4j.cinema.repository.sql2o;
 
 import net.jcip.annotations.ThreadSafe;
 import org.apache.logging.log4j.LogManager;
@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.User;
+import ru.job4j.cinema.repository.UserRepository;
 
 import java.util.Optional;
 

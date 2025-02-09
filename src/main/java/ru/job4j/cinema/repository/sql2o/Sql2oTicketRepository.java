@@ -1,25 +1,24 @@
-package ru.job4j.cinema.repository;
+package ru.job4j.cinema.repository.sql2o;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.jcip.annotations.ThreadSafe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.repository.TicketRepository;
 
 import java.util.Optional;
 
 @ThreadSafe
 @Repository
+@Slf4j
+@RequiredArgsConstructor
 public class Sql2oTicketRepository implements TicketRepository {
 
-    private static final Logger LOG = LogManager.getLogger(Sql2oTicketRepository.class.getName());
-
     private final Sql2o sql2o;
-
-    public Sql2oTicketRepository(Sql2o sql2o) {
-        this.sql2o = sql2o;
-    }
 
     @Override
     public Optional<Ticket> save(Ticket ticket) {
@@ -37,7 +36,7 @@ public class Sql2oTicketRepository implements TicketRepository {
             ticket.setId(generatedId);
             return Optional.of(ticket);
         } catch (Exception e) {
-            LOG.error("Выберите другое место", e);
+            log.error("Выберите другое место", e);
         }
         return Optional.empty();
     }
@@ -78,7 +77,7 @@ public class Sql2oTicketRepository implements TicketRepository {
     }
 
     @Override
-    public boolean deleteById(Long id) {
+    public void deleteById(Long id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery(
                             """
@@ -86,7 +85,9 @@ public class Sql2oTicketRepository implements TicketRepository {
                                     """)
                     .addParameter("id", id);
             var affectedRows = query.executeUpdate().getResult();
-            return affectedRows > 0;
+            if (affectedRows == 0) {
+                throw new RuntimeException("Не удалось удалить билет с id : " + id);
+            }
         }
     }
 }

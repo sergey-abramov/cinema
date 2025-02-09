@@ -12,5 +12,5 @@ public interface TicketService {
 
     boolean update(Ticket ticket);
 
-    boolean deleteById(Long id);
+    void deleteById(Long id);
 }

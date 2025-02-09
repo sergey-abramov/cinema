@@ -33,7 +33,7 @@ public class SimpleTicketService implements TicketService {
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        return repository.deleteById(id);
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 }
