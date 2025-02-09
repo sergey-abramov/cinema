@@ -126,6 +126,8 @@
         </dependency>
     </dependencies>
     <build>
+        <defaultGoal>spring-boot:run</defaultGoal>
+        <finalName>cinema</finalName>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
