@@ -31,7 +31,7 @@ public class Sql2oFilmRepository implements FilmRepository {
     }
 
     @Override
-    public Collection<Film> getAll() {
+    public Collection<Film> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("""
                             SELECT films.id, films.name, films.genre_id, films.duration_in_minutes,

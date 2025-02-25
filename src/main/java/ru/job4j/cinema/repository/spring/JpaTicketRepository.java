@@ -6,6 +6,6 @@ import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.repository.TicketRepository;
 
 @Repository
-public interface JpaTicketRepository extends JpaRepository<Ticket, Long>, TicketRepository {
+public interface JpaTicketRepository extends JpaRepository<Ticket, Long> {
 
 }

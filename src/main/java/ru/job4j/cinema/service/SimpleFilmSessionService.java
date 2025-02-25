@@ -1,6 +1,7 @@
 package ru.job4j.cinema.service;
 
 import net.jcip.annotations.ThreadSafe;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FilmSessionDto;
 import ru.job4j.cinema.model.FilmSession;
@@ -20,8 +21,9 @@ public class SimpleFilmSessionService implements FilmSessionService {
     private final FilmRepository filmRepository;
     private final HallRepository hallRepository;
 
-    public SimpleFilmSessionService(FilmSessionRepository repository,
-                                    FilmRepository filmRepository, HallRepository hallRepository) {
+    public SimpleFilmSessionService(@Qualifier("jpaFilmSessionRepository")FilmSessionRepository repository,
+                                    @Qualifier("jpaFilmRepository")FilmRepository filmRepository,
+                                    @Qualifier("jpaHallRepository")HallRepository hallRepository) {
         this.repository = repository;
         this.filmRepository = filmRepository;
         this.hallRepository = hallRepository;

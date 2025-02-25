@@ -1,6 +1,7 @@
 package ru.job4j.cinema.service;
 
 import net.jcip.annotations.ThreadSafe;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FileDto;
 import ru.job4j.cinema.repository.FileRepository;
@@ -16,7 +17,7 @@ public class SimpleFileService implements FileService {
 
     private final FileRepository repository;
 
-    public SimpleFileService(FileRepository repository) {
+    public SimpleFileService(@Qualifier("jpaFileRepository")FileRepository repository) {
         this.repository = repository;
     }
 

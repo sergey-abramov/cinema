@@ -1,6 +1,7 @@
 package ru.job4j.cinema.service;
 
 import net.jcip.annotations.ThreadSafe;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FilmDto;
 import ru.job4j.cinema.repository.FilmRepository;
@@ -17,7 +18,8 @@ public class SimpleFilmService implements FilmService {
     private final FilmRepository repository;
     private final GenreRepository genreRepository;
 
-    public SimpleFilmService(FilmRepository repository, GenreRepository genreRepository) {
+    public SimpleFilmService(@Qualifier("jpaFilmRepository")FilmRepository repository,
+                             GenreRepository genreRepository) {
         this.repository = repository;
         this.genreRepository = genreRepository;
     }
@@ -37,7 +39,7 @@ public class SimpleFilmService implements FilmService {
 
     @Override
     public Collection<FilmDto> getAll() {
-        return repository.getAll()
+        return repository.findAll()
                 .stream()
                 .map(film -> new FilmDto(
                 film.getId(), film.getDescription(), film.getName(),

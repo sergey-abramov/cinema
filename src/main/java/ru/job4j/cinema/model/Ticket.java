@@ -34,7 +34,7 @@ public class Ticket {
     private int sessionId;
     private int rowNumber;
     private int placeNumber;
-    private int userId;
+    private Long userId;
 
     @Override
     public final boolean equals(Object object) {

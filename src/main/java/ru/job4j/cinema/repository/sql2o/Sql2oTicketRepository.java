@@ -14,14 +14,13 @@ import java.util.Optional;
 
 @ThreadSafe
 @Repository
-@Slf4j
 @RequiredArgsConstructor
 public class Sql2oTicketRepository implements TicketRepository {
 
     private final Sql2o sql2o;
 
     @Override
-    public Optional<Ticket> save(Ticket ticket) {
+    public Ticket save(Ticket ticket) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery(
                     """
@@ -34,11 +33,10 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("user_id", ticket.getUserId());
             Long generatedId = query.executeUpdate().getKey(Long.class);
             ticket.setId(generatedId);
-            return Optional.of(ticket);
+            return ticket;
         } catch (Exception e) {
-            log.error("Выберите другое место", e);
+            throw new RuntimeException("Выберите другое место", e);
         }
-        return Optional.empty();
     }
 
     @Override
