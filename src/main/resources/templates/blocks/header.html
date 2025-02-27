@@ -23,6 +23,7 @@
     <!-- Custom styles for this template -->
     <link href="/static/css/header.css" rel="stylesheet">
 </head>
+<body>
 <div th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
     <header class="p-3 bg-dark text-white">
         <div class="container">
@@ -35,20 +36,85 @@
                     <li><a href="/faq" class="nav-link px-2 text-white">FAQs</a></li>
                 </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 search-box">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" id="searchInput">
                 </form>
 
-                <div class="text-end" th:if="${user.fullName == 'Гость'}">
-                    <a class="btn btn-outline-light me-2" href="#" th:href="@{/users/register}">Регистрация</a>
-                    <a class="btn btn-warning" th:href="@{/users/login}">Войти</a>
+                <div class="text-end" id="userSection">
+                    <!-- Сюда будет вставлен контент в зависимости от состояния пользователя -->
                 </div>
-                <div class="text-end" th:if="${user.fullName != 'Гость'}">
-                    <a class="btn btn-outline-light me-2" href="#" th:text="${user.fullName}"></a>
-                    <a class="btn btn-warning" th:href="@{/users/logout}">Выйти</a>
+
+                <div class="text-md-end col-2">
+                    <button id="themeToggle" class="btn btn-outline-light me-2 btn-custom">Сменить тему</button>
                 </div>
             </div>
         </div>
     </header>
+
+    <script>
+        // Имитация состояния пользователя
+        const user = {
+            fullName: "Гость",
+            isGuest: true // Замените на true для неавторизованного пользователя
+        };
+
+        // Функция для отображения состояния пользователя
+        function renderUserSection() {
+            const userSection = document.getElementById('userSection');
+            if (user.isGuest) {
+                userSection.innerHTML = `
+                    <a class="btn btn-outline-light me-2 btn-custom" href="/users/register">Регистрация</a>
+                    <a class="btn btn-warning btn-custom" href="/users/login">Войти</a>
+                `;
+            } else {
+                userSection.innerHTML = `
+                    <a class="btn btn-outline-light me-2 btn-custom" href="#">${user.fullName}</a>
+                    <a class="btn btn-warning btn-custom" href="/users/logout">Выйти</a>
+                `;
+            }
+        }
+
+        // Функция для обработки поиска
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (event) => {
+                const query = event.target.value;
+                console.log("Поиск:", query); // Здесь можно добавить логику поиска
+            });
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            renderUserSection();
+            setupSearch();
+        });
+    </script>
+
+
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
+
+        // При загрузке страницы
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+    </script>
+
+    <style>
+        .dark-theme {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .dark-theme .navbar-custom {
+            background-color: #1a1a1a;
+        }
+    </style>
 </div>
+</body>
 </html>
