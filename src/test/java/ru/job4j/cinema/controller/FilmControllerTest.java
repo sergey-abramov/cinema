@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +26,7 @@ class FilmControllerTest {
 
     @Test
     void getFilm() {
-        var filmDto = new FilmDto(1, "test", "test", 2002, "test", 15, 1, 1);
+        var filmDto = new FilmDto(1L, "test", "test", 2002, "test", 15, 1, 1);
         when(service.findById(filmDto.getId())).thenReturn(Optional.of(filmDto));
 
         var model = new ConcurrentModel();
@@ -40,8 +39,8 @@ class FilmControllerTest {
 
     @Test
     void getAll() {
-        var filmDto = new FilmDto(1, "test", "test", 2002, "test", 15, 1, 1);
-        var filmDto1 = new FilmDto(1, "test", "test", 2002, "test", 15, 1, 1);
+        var filmDto = new FilmDto(1L, "test", "test", 2002, "test", 15, 1, 1);
+        var filmDto1 = new FilmDto(1L, "test", "test", 2002, "test", 15, 1, 1);
         var expected = List.of(filmDto, filmDto1);
         when(service.getAll()).thenReturn(expected);
 

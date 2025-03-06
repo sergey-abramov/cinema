@@ -1,9 +1,10 @@
-package ru.job4j.cinema.repository;
+package ru.job4j.cinema.repository.sql2o;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.File;
+import ru.job4j.cinema.repository.FileRepository;
 
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class Sql2oFileRepository implements FileRepository {
     }
 
     @Override
-    public Optional<File> findById(int id) {
+    public Optional<File> findById(Long id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM files WHERE id = :id");
             var file = query.addParameter("id", id).executeAndFetchFirst(File.class);

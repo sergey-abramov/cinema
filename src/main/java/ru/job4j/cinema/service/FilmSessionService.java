@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface FilmSessionService {
 
-    Optional<FilmSessionDto> findById(int id);
+    Optional<FilmSessionDto> findById(Long id);
 
     Collection<FilmSessionDto> findAll();
 }

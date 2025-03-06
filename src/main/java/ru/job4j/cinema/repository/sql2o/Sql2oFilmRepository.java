@@ -1,9 +1,10 @@
-package ru.job4j.cinema.repository;
+package ru.job4j.cinema.repository.sql2o;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.Film;
+import ru.job4j.cinema.repository.FilmRepository;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class Sql2oFilmRepository implements FilmRepository {
     }
 
     @Override
-    public Optional<Film> findById(int id) {
+    public Optional<Film> findById(Long id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM films WHERE id = :id")
                     .addParameter("id", id);
@@ -30,7 +31,7 @@ public class Sql2oFilmRepository implements FilmRepository {
     }
 
     @Override
-    public Collection<Film> getAll() {
+    public Collection<Film> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("""
                             SELECT films.id, films.name, films.genre_id, films.duration_in_minutes,

@@ -1,4 +1,4 @@
-package ru.job4j.cinema.repository;
+package ru.job4j.cinema.repository.sql2o;
 
 import net.jcip.annotations.ThreadSafe;
 import org.apache.logging.log4j.LogManager;
@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.User;
+import ru.job4j.cinema.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -13,7 +14,6 @@ import java.util.Optional;
 @Repository
 public class Sql2oUserRepository implements UserRepository {
 
-    private static final Logger LOG = LogManager.getLogger(Sql2oUserRepository.class.getName());
     private final Sql2o sql2o;
 
     public Sql2oUserRepository(Sql2o sql2o) {
@@ -21,7 +21,7 @@ public class Sql2oUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> save(User user) {
+    public User save(User user) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery(
                             """
@@ -31,14 +31,12 @@ public class Sql2oUserRepository implements UserRepository {
                     .addParameter("email", user.getEmail())
                     .addParameter("full_name", user.getFullName())
                     .addParameter("password", user.getPassword());
-            int generatedId = query.executeUpdate().getKey(Integer.class);
+            Long generatedId = query.executeUpdate().getKey(Long.class);
             user.setId(generatedId);
-            return Optional.of(user);
+            return user;
         } catch (Exception e) {
-            LOG.error("Пользователь с таим email уже существует", e);
+           throw new RuntimeException("Пользователь с таим email уже существует", e);
         }
-        return Optional.empty();
-
     }
 
     @Override

@@ -1,9 +1,9 @@
 package ru.job4j.cinema.service;
 
 import net.jcip.annotations.ThreadSafe;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FilmDto;
-import ru.job4j.cinema.model.Film;
 import ru.job4j.cinema.repository.FilmRepository;
 import ru.job4j.cinema.repository.GenreRepository;
 
@@ -18,13 +18,14 @@ public class SimpleFilmService implements FilmService {
     private final FilmRepository repository;
     private final GenreRepository genreRepository;
 
-    public SimpleFilmService(FilmRepository repository, GenreRepository genreRepository) {
+    public SimpleFilmService(@Qualifier("jpaFilmRepository")FilmRepository repository,
+                             GenreRepository genreRepository) {
         this.repository = repository;
         this.genreRepository = genreRepository;
     }
 
     @Override
-    public Optional<FilmDto> findById(int id) {
+    public Optional<FilmDto> findById(Long id) {
         var optionalFilm = repository.findById(id);
         FilmDto filmDto = null;
         if (optionalFilm.isPresent()) {
@@ -38,7 +39,7 @@ public class SimpleFilmService implements FilmService {
 
     @Override
     public Collection<FilmDto> getAll() {
-        return repository.getAll()
+        return repository.findAll()
                 .stream()
                 .map(film -> new FilmDto(
                 film.getId(), film.getDescription(), film.getName(),
@@ -47,7 +48,7 @@ public class SimpleFilmService implements FilmService {
                 film.getFileId())).collect(Collectors.toList());
     }
 
-    private String getGenre(int id) {
+    private String getGenre(Long id) {
         return genreRepository.findById(id).get().getName();
     }
 

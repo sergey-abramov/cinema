@@ -29,9 +29,9 @@ class FileControllerTest {
     @Test
     void getById() throws Exception {
         var fileDto = new FileDto(file.getOriginalFilename(), file.getBytes());
-        when(fileService.findById(1)).thenReturn(Optional.of(fileDto));
+        when(fileService.findById(1L)).thenReturn(Optional.of(fileDto));
 
-        var actualFile = fileController.getById(1);
+        var actualFile = fileController.getById(1L);
 
         assertThat(actualFile.getBody()).isEqualTo(fileDto.getContent());
     }

@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface TicketRepository {
 
-    Optional<Ticket> save(Ticket ticket);
+    Ticket save(Ticket ticket);
 
-    Optional<Ticket> findById(int id);
+    Optional<Ticket> findById(Long id);
 
     boolean update(Ticket ticket);
 
-    boolean deleteById(int id);
+    void deleteById(Long id);
 }

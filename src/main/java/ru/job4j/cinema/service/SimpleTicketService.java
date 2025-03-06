@@ -1,6 +1,8 @@
 package ru.job4j.cinema.service;
 
 import net.jcip.annotations.ThreadSafe;
+import org.junit.platform.commons.function.Try;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.repository.TicketRepository;
@@ -19,11 +21,11 @@ public class SimpleTicketService implements TicketService {
 
     @Override
     public Optional<Ticket> save(Ticket ticket) {
-        return repository.save(ticket);
+        return Optional.ofNullable(repository.save(ticket));
     }
 
     @Override
-    public Optional<Ticket> findById(int id) {
+    public Optional<Ticket> findById(Long id) {
         return repository.findById(id);
     }
 
@@ -33,7 +35,7 @@ public class SimpleTicketService implements TicketService {
     }
 
     @Override
-    public boolean deleteById(int id) {
-        return repository.deleteById(id);
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 }

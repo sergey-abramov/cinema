@@ -1,7 +1,7 @@
 package ru.job4j.cinema.service;
 
 import net.jcip.annotations.ThreadSafe;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.HallDto;
 import ru.job4j.cinema.model.Hall;
@@ -15,12 +15,12 @@ public class SimpleHallService implements HallService {
 
     private final HallRepository repository;
 
-    public SimpleHallService(HallRepository repository) {
+    public SimpleHallService(@Qualifier("jpaHallRepository")HallRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Optional<Hall> findById(int id) {
+    public Optional<Hall> findById(Long id) {
         return repository.findById(id);
     }
 

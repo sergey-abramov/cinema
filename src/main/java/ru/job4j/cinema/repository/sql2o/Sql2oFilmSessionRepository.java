@@ -1,9 +1,10 @@
-package ru.job4j.cinema.repository;
+package ru.job4j.cinema.repository.sql2o;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.FilmSession;
+import ru.job4j.cinema.repository.FilmSessionRepository;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class Sql2oFilmSessionRepository implements FilmSessionRepository {
     }
 
     @Override
-    public Optional<FilmSession> findById(int id) {
+    public Optional<FilmSession> findById(Long id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM film_sessions WHERE id = :id")
                     .addParameter("id", id);

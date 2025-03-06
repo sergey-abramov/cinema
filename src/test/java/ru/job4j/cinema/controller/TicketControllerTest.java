@@ -34,9 +34,9 @@ class TicketControllerTest {
 
     @Test
     void whenFilmSessionThenGetTicketBy() {
-        var filmSession = new FilmSessionDto(1, "test", 1, "num1", LocalDateTime.now(),
+        var filmSession = new FilmSessionDto(1L, "test", 1L, "num1", LocalDateTime.now(),
                 LocalDateTime.now().plusHours(2), 120);
-        var hallDto = new HallDto(1, "num1", new int[]{1, 2}, new int[]{1, 2}, "test");
+        var hallDto = new HallDto(1L, "num1", new int[]{1, 2}, new int[]{1, 2}, "test");
         when(service.findById(filmSession.getId())).thenReturn(Optional.of(filmSession));
         when(hallService.findByName(filmSession.getHallsName())).thenReturn(Optional.of(hallDto));
 
@@ -50,7 +50,7 @@ class TicketControllerTest {
 
     @Test
     void whenErrorThenGetTicketBy() {
-        var filmSession = new FilmSessionDto(1, "test", 1, "num1", LocalDateTime.now(),
+        var filmSession = new FilmSessionDto(1L, "test", 1L, "num1", LocalDateTime.now(),
                 LocalDateTime.now().plusHours(2), 120);
         when(service.findById(filmSession.getId())).thenReturn(Optional.empty());
 
@@ -69,7 +69,7 @@ class TicketControllerTest {
                 "Вероятно оно уже занято. Перейдите на страницу бронирования билетов
                 и попробуйте снова.
                 """;
-        var ticket = new Ticket(1, 1, 1, 1, 1);
+        var ticket = new Ticket(1L, 1, 1, 1, 1);
         when(ticketService.save(ticket)).thenReturn(Optional.empty());
 
         var model = new ConcurrentModel();
@@ -82,7 +82,7 @@ class TicketControllerTest {
 
     @Test
     void whenFilmSessionThenPostSaveTicket() {
-        var ticket = new Ticket(1, 1, 1, 1, 1);
+        var ticket = new Ticket(1L, 1, 1, 1, 1);
         when(ticketService.save(ticket)).thenReturn(Optional.of(ticket));
 
         var model = new ConcurrentModel();
