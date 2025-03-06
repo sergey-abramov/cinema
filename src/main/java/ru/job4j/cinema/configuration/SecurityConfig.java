@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, exception) -> {
                     if (SecurityUtil.isAcceptTextHtml(request)) {
-                       /**response.sendRedirect(endpoint + "/login");*/
+                       response.sendRedirect("localhost:8080/login");
                     } else {
                         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                     }
