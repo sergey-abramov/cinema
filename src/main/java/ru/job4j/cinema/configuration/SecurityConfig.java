@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -59,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, exception) -> {
                     if (SecurityUtil.isAcceptTextHtml(request)) {
-                       // response.sendRedirect(endpoint + "/login");
+                       /**response.sendRedirect(endpoint + "/login");*/
                     } else {
                         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                     }

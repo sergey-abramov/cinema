@@ -12,7 +12,10 @@ public class SecurityUtil {
     public static boolean isAcceptTextHtml(HttpServletRequest request) {
         String acceptHeader = request.getHeader("Accept");
         String xRequestedWith = request.getHeader("X-Requested-With");
-        return acceptHeader != null && (acceptHeader.contains("text/html") || acceptHeader.contains("*/*") || acceptHeader.contains("*/html") || acceptHeader.contains("text/*")) && (xRequestedWith == null || !xRequestedWith.contains("XMLHttpRequest"));
+        return acceptHeader != null && (acceptHeader.contains("text/html")
+                || acceptHeader.contains("*/*") || acceptHeader.contains("*/html")
+                || acceptHeader.contains("text/*")) && (xRequestedWith == null
+                || !xRequestedWith.contains("XMLHttpRequest"));
     }
 
     public static boolean isUserLogged() {
