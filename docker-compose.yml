@@ -60,18 +60,33 @@ services:
       - postgres
 
   cinema:
-    profiles:
-      - environment
-    build: /
+    build: .
     ports:
       - "8080:8080"
-    working_dir: /project/
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/cinema
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      FILE_DIRECTORY: /app/files
+      SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE: 10MB
     volumes:
-      - ./cinema/:/project/
+      - cinema-uploads:/app/files  # Постоянное хранилище для загруженных файлов
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - postgres
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
 
 volumes:
   cinemadb-data:
   pgadmin-data:
+  cinema-uploads:
 
 networks:
   postgres:
